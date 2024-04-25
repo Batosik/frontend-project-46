@@ -2,7 +2,7 @@
   "name": "@hexlet/code",
   "version": "1.0.0",
   "description": "[![Actions Status](https://github.com/Batosik/frontend-project-46/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/Batosik/frontend-project-46/actions)",
-  "main": "index.js",
+  "main": "gendiff.js",
   "type": "module",
   "bin": {
     "gendiff": "bin/gendiff.js"
@@ -13,7 +13,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "commander": "^12.0.0"
+    "commander": "^12.0.0",
+    "fs": "^0.0.1-security"
   },
   "devDependencies": {
     "eslint": "^8.57.0",
