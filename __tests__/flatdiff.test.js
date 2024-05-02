@@ -1,9 +1,18 @@
-import cp from 'child_process'
+import genDiff from "../flatdiff";
 
-// add tests fullpath relpath
+const obj1 = {
+  "host": "hexlet.io",
+  "timeout": 50,
+  "proxy": "123.234.53.22",
+  "follow": false
+}
+const obj2 = {
+  "timeout": 20,
+  "verbose": true,
+  "host": "hexlet.io"
+}
 
-test('flatdiff', () => {
-  const expected = 
+const expected = 
 `{
   - follow: false
     host: hexlet.io
@@ -12,6 +21,7 @@ test('flatdiff', () => {
   + timeout: 20
   + verbose: true
 }`
-  const data = cp.execSync(`gendiff __fixtures__/file1.json __fixtures__/file2.json`, { encoding: 'utf-8' });
-  expect(data.trim()).toBe(expected);
+
+test('gendiff', () => {
+  expect(genDiff(obj1, obj2)).toBe(expected);
 })
