@@ -5,4 +5,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: tests
-        run: npx -n --experimental-vm-modules jest
+        run: make install
+        # run: make lint
+        run: make test

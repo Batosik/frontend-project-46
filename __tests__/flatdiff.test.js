@@ -13,7 +13,5 @@ test('flatdiff', () => {
   + verbose: true
 }`
   const data = cp.execSync(`gendiff __fixtures__/file1.json __fixtures__/file2.json`, { encoding: 'utf-8' });
-  console.log(data)
-  console.log(expected)
   expect(data.trim()).toBe(expected);
 })
