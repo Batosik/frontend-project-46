@@ -25,7 +25,10 @@ const genDiff = (file1, file2) => {
     }
     return acc;
   }, {});
-  return Object.assign(result, rest);
+  // func
+  const last = Object.entries(Object.assign(result, rest)).map(([key, value]) => `  ${key}: ${value}`)
+  const output = ['{', ...last, '}'].join('\n')
+  return output;
 };
 
 export default genDiff;
