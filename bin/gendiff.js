@@ -1,8 +1,6 @@
 #!/usr/bin/env node
 import { Command } from 'commander';
-import * as fs from 'node:fs';
-import * as path from 'node:path';
-import genDiff from '../flatdiff.js';
+import genDiff from '../genDiff.js';
 
 const program = new Command();
 
@@ -14,14 +12,7 @@ program
   .argument('<filepath1>')
   .argument('<filepath2>')
   .action((filepath1, filepath2) => {
-    // выделить в модуль. £3 Поддержка форматов.
-    const absfile1path = path.resolve(filepath1);
-    const absfile2path = path.resolve(filepath2);
-    const file1 = fs.readFileSync(absfile1path, { encoding: 'utf-8' });
-    const file2 = fs.readFileSync(absfile2path, { encoding: 'utf-8' });
-    const parseFile1 = JSON.parse(file1);
-    const parseFile2 = JSON.parse(file2);
-    console.log(genDiff(parseFile1, parseFile2))
+    console.log(genDiff(filepath1, filepath2));
   });
 
 program.parse();
