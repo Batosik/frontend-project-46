@@ -1,37 +1,40 @@
 import _ from 'lodash';
-import sorting from './utils/sortingBykeys.js';
 import parse from './src/parsers.js';
+import stylish from './src/formaters/stylish.js';
 
-const genDiff = (file1path, file2path) => {
+const compareObjects = (branch1, branch2) => {
+  const keys = _.keys({...branch1, ...branch2});
+  const uniqKeys = _.uniq(keys)
+  const sortedKeys = _.sortBy(uniqKeys)
+  const result = sortedKeys.map((key) => {
+    if (!Object.hasOwn(branch1, key) && Object.hasOwn(branch2, key)) {
+      return {type: 'add', key, value: branch2[key]}
+    } else if (Object.hasOwn(branch2, key)) {      
+        if (_.isObject(branch1[key]) && _.isObject(branch2[key])) {
+          return {type: 'nested', key, value: compareObjects(branch1[key], branch2[key])}
+        } else if (_.isEqual(branch1[key], branch2[key])) {
+          return {type: 'equal', key, value: branch1[key]}
+        } else {
+          return {type: 'changed', key, oldValue: branch1[key], newValue: branch2[key]}
+    }
+    } else {
+      return {type: 'removed', key, value: branch1[key]}
+    } 
+  })
+  return result; 
+}
+
+const genDiff = (file1path, file2path, formater) => {
   const file1 = parse(file1path);
   const file2 = parse(file2path);
-  const sorted1 = sorting(file1);
-  const sorted2 = sorting(file2);
-  const result = sorted1.reduce((acc, curr) => {
-    const [key, value] = curr;
-    if (Object.hasOwn(file2, key)) {
-      if (_.isEqual(value, file2[key])) {
-        acc[`  ${key}`] = value;
-      } else {
-        acc[`- ${key}`] = value;
-        acc[`+ ${key}`] = file2[key];
-      }
-    } else {
-      acc[`- ${key}`] = value;
-    }
-    return acc;
-  }, {});
-  const rest = sorted2.reduce((acc, curr) => {
-    const [key, value] = curr;
-    if (!Object.hasOwn(file1, key)) {
-      acc[`+ ${key}`] = value;
-    }
-    return acc;
-  }, {});
-  // func
-  const last = Object.entries(Object.assign(result, rest)).map(([key, value]) => `  ${key}: ${value}`);
-  const output = ['{', ...last, '}'].join('\n');
-  return output;
+  const diff = compareObjects(file1, file2)
+  const result = stylish(diff)
+  return result
 };
+
+
+
+console.log(genDiff('__fixtures__/file1.yml', '__fixtures__/file2.yml', 'stylish'))
+
 
 export default genDiff;
