@@ -1,8 +1,6 @@
 import genDiff from '../genDiff.js';
-import stylish from '../src/formaters/stylish.js';
 
-const expected = 
-`{
+const expected1 = `{
     common: {
       + follow: false
         setting1: Value 1
@@ -47,10 +45,30 @@ const expected =
     }
 }`;
 
-test('flatdiff_json', () => {
-  expect(genDiff('__fixtures__/file1.json', '__fixtures__/file2.json', 'stylish')).toBe(expected);
+const expected2 = `Property 'common.follow' was added with value: false
+Property 'common.setting2' was removed
+Property 'common.setting3' was updated. From true to null
+Property 'common.setting4' was added with value: 'blah blah'
+Property 'common.setting5' was added with value: [complex value]
+Property 'common.setting6.doge.wow' was updated. From '' to 'so much'
+Property 'common.setting6.ops' was added with value: 'vops'
+Property 'group1.baz' was updated. From 'bas' to 'bars'
+Property 'group1.nest' was updated. From [complex value] to 'str'
+Property 'group2' was removed
+Property 'group3' was added with value: [complex value]`;
+
+test('stylishDiff_json', () => {
+  expect(genDiff('__fixtures__/file1.json', '__fixtures__/file2.json', 'stylish')).toBe(expected1);
 });
 
-test('flatdiff_yml', () => {
-  expect(genDiff('__fixtures__/file1.yml', '__fixtures__/file2.yml', stylish)).toBe(expected);
+test('stylishDiff_yml', () => {
+  expect(genDiff('__fixtures__/file1.yml', '__fixtures__/file2.yml', 'stylish')).toBe(expected1);
+});
+
+test('plainDiff_yml', () => {
+  expect(genDiff('__fixtures__/file1.yml', '__fixtures__/file2.yml', 'plain')).toBe(expected2);
+});
+
+test('plainDiff_json', () => {
+  expect(genDiff('__fixtures__/file1.json', '__fixtures__/file2.json', 'plain')).toBe(expected2);
 });
