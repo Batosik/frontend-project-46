@@ -11,12 +11,6 @@ const getData = (filePath) => {
 
 const getFormat = (filepath) => path.extname(filepath).slice(1);
 
-// const prepareData = (filepath) => {
-//   const data = getData(filepath);
-//   const format = getFormat(filepath);
-//   return parse(data, format);
-// }
-
 const genDiff = (file1path, file2path, fromatName) => {
   const data1 = getData(file1path);
   const format1 = getFormat(file1path);
@@ -24,12 +18,8 @@ const genDiff = (file1path, file2path, fromatName) => {
   const data2 = getData(file2path);
   const format2 = getFormat(file2path);
   const obj2 = parse(data2, format2);
-  // const obj1 = prepareData(file1path);
-  // const obj2 = prepareData(file2path);
   const diff = findDiff(obj1, obj2);
   return diffOutput(diff, fromatName);
 };
-
-console.log(genDiff('__fixtures__/file1.yml', '__fixtures__/file2.yml', 'json'));
 
 export default genDiff;
