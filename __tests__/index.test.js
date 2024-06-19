@@ -1,4 +1,5 @@
 import genDiff from '../src/index.js';
+//tests
 
 const expected1 = `{
     common: {
