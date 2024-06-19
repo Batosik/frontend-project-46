@@ -1,4 +1,4 @@
-import genDiff from '../genDiff.js';
+import genDiff from '../src/index.js';
 
 const expected1 = `{
     common: {
