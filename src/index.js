@@ -22,6 +22,4 @@ const genDiff = (file1path, file2path, fromatName) => {
   return diffOutput(diff, fromatName);
 };
 
-//console.log(genDiff('__fixtures__/file1.yml', '__fixtures__/file2.yml', 'stylish'));
-
 export default genDiff;
