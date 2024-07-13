@@ -8,7 +8,7 @@ const findDiff = (branch1, branch2) => {
       return { type: 'add', key, value: branch2[key] };
     } if (Object.hasOwn(branch2, key)) {
       if (_.isObject(branch1[key]) && _.isObject(branch2[key])) {
-        return { type: 'nested', key, value: findDiff(branch1[key], branch2[key]) };
+        return { type: 'nested', key, children: findDiff(branch1[key], branch2[key]) };
       } if (_.isEqual(branch1[key], branch2[key])) {
         return { type: 'equal', key, value: branch1[key] };
       }

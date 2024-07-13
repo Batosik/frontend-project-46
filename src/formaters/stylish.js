@@ -19,7 +19,7 @@ const stylish = (diff) => {
     const result = diffItems.map((item) => {
       const { type } = item;
       if (type === 'nested') {
-        return `${curentIndent}  ${item.key}: ${iter(item.value, depth + 1)}`;
+        return `${curentIndent}  ${item.key}: ${iter(item.children, depth + 1)}`;
       } if (type === 'changed') {
         return `${curentIndent}- ${item.key}: ${stringify(item.oldValue, depth + 1)}\n${curentIndent}+ ${item.key}: ${stringify(item.value, depth + 1)}`;
       }

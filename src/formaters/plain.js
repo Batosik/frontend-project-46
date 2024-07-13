@@ -26,7 +26,7 @@ const plain = (diff) => {
         case 'changed':
           return `Property '${buildPath(newPath)}' was updated. From ${formValueInOutput(item.oldValue)} to ${value}`;
         case 'nested':
-          return iter(item.value, path.concat([item.key]));
+          return iter(item.children, path.concat([item.key]));
         default:
           return null;
       }
