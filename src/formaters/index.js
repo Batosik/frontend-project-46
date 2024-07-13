@@ -10,7 +10,7 @@ const diffOutput = (diff, formatName) => {
     case 'json':
       return JSON.stringify(diff);
     default:
-      return JSON.stringify(diff);
+      throw Error('Unknown format');
   }
 };
 
