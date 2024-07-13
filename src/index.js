@@ -11,7 +11,7 @@ const getData = (filePath) => {
 
 const getFormat = (filepath) => path.extname(filepath).slice(1);
 
-const genDiff = (file1path, file2path, fromatName) => {
+const genDiff = (file1path, file2path, fromatName = 'stylish') => {
   const data1 = getData(file1path);
   const format1 = getFormat(file1path);
   const obj1 = parse(data1, format1);

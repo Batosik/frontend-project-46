@@ -1,4 +1,4 @@
-import genDiff from '../src/gendiff.js';
+import genDiff from '../src/index.js';
 // tests
 
 const expected1 = `{
